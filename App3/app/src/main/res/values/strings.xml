@@ -2,4 +2,8 @@
     <string name="app_name">App3</string>
     <string name="label_txt">Hello!</string>
     <string name="button_txt">Click me</string>
+    <string name="mobile">Mobile</string>
+    <string name="password">Password</string>
+    <string name="signin">Signin</string>
+    <string name="welcome">Welcome Back</string>
 </resources>

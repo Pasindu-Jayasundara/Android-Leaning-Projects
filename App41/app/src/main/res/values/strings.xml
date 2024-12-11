@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">App4.1</string>
+    <string name="btn1">Open 4.2</string>
+    <string name="btn2">BroadCast Received</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.app5;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,19 @@ public class MainActivity2 extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        Button button3 = findViewById(R.id.button3);
+        Button button4 = findViewById(R.id.button4);
+
+        button3.setOnClickListener(view -> {
+            button4.setVisibility(View.INVISIBLE);
+            button4.setVisibility(View.GONE);
+        });
+
+        button4.setOnClickListener(view->{
+            button3.setVisibility(View.INVISIBLE);
+            button3.setVisibility(View.GONE);
         });
     }
 }

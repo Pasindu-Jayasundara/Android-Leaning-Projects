@@ -34,14 +34,13 @@ public class MainActivity extends AppCompatActivity {
             button2.bringToFront();
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                button1.setVisibility(View.VISIBLE);
-//                button2.setVisibility(View.INVISIBLE);
+        button2.setOnClickListener(view -> {
+/*
+                button1.setVisibility(View.VISIBLE);
+                button2.setVisibility(View.INVISIBLE);
+*/
 
-                button1.bringToFront();
-            }
+            button1.bringToFront();
         });
     }
 }

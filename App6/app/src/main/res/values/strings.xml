@@ -3,4 +3,14 @@
     <string name="button1">Button 1</string>
     <string name="button2">Button 2</string>
     <string name="button3">New Button</string>
+    <string name="button4">Button</string>
+    <string name="userRegistrationTitle">User Registration</string>
+    <string name="userRegistrationId">Id</string>
+    <string name="userRegistrationName">Name</string>
+    <string name="userRegistrationMobile">Mobile</string>
+    <string name="userRegistrationImageDescription">User Image</string>
+    <string name="userRegistrationIdDescription">User Id</string>
+    <string name="userRegistrationNameDescription">User Name</string>
+    <string name="userRegistrationMobileDescription">User Mobile</string>
+    <string name="userRegistrationButton">Create Account</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.app6;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +53,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("user",json);
                 editor.apply();
+
+                Intent i = new Intent(UserRegistrationActivity.this,HomeActivity.class);
+                startActivity(i);
 
             }
         });

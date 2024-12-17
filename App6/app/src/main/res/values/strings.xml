@@ -13,4 +13,5 @@
     <string name="userRegistrationNameDescription">User Name</string>
     <string name="userRegistrationMobileDescription">User Mobile</string>
     <string name="userRegistrationButton">Create Account</string>
+    <string name="home">Home</string>
 </resources>

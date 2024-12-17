@@ -1,6 +1,8 @@
 package com.example.app7;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -51,6 +53,53 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
                 t.start();
+
+            }
+        });
+
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AsyncTask asyncTask = new AsyncTask() {
+
+                    @Override
+                    protected void onPreExecute() {
+                        Log.i("AsyncTask", "onPreExecute");
+                    }
+
+                    @Override
+                    protected Object doInBackground(Object[] objects) {
+
+                        for (int i = 0; i <= 10; i++) {
+                            try {
+                                publishProgress(i);
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        return null;
+                    }
+
+                    @Override
+                    protected void onProgressUpdate(Object[] values) {
+
+                        int x = (int) values[0];
+
+                        TextView tv = findViewById(R.id.textView1);
+                        tv.setText(String.valueOf(x));
+
+                    }
+
+                    @Override
+                    protected void onPostExecute(Object o) {
+                        Log.i("AsyncTask", "onPostExecute");
+                    }
+
+                };
+                asyncTask.execute("");
 
             }
         });

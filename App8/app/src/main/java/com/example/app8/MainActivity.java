@@ -38,18 +38,33 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     protected String doInBackground(Integer... integers) {
 
+                        if(integers.length < 4){
+                            return "Insufficient Parameter Cunt";
+                        }
+
+                        if(integers[1] > integers[0]){
+                            return "Invalid Range";
+                        }
+
                         try {
-                            Thread.sleep(5000);
-
-                            for (int i = integers[0]; i <= integers[1]; i--) {
-                                publishProgress(i);
-                                Thread.sleep(1000);
-                            }
-
-                            Thread.sleep(5000);
-
+                            Thread.sleep(integers[3]);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
+                        }
+
+                        for (int i = integers[0]; i <= integers[1]; i--) {
+                            publishProgress(i);
+                            try {
+                                Thread.sleep(integers[2]);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        try {
+                            Thread.sleep(integers[3]);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
                         }
 
                         return "End";
@@ -57,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     protected void onProgressUpdate(Integer... values) {
-                        ((TextView) findViewById(R.id.textView1)).setText(String.valueOf((int) values[0]));
+                        ((TextView) findViewById(R.id.textView1)).setText(String.valueOf(values[0]));
                     }
 
                     @Override
@@ -65,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         ((TextView) findViewById(R.id.textView1)).setText(string);
                     }
 
-                }.execute(10,0);
+                }.execute(10,0,1000,5000);
 
             }
         });

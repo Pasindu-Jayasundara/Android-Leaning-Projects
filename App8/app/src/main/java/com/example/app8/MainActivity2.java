@@ -1,8 +1,11 @@
 package com.example.app8;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 
@@ -61,6 +64,27 @@ public class MainActivity2 extends AppCompatActivity {
                 }else{
                     Log.i("MainActivity 2","Already has All the permissions");
                 }
+
+            }
+        });
+
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Intent i = new Intent(Intent.ACTION_SEND);
+                // i.setType("text/plain");
+                // i.setData(Uri.parse("smsto:0740211671"));
+                // i.putExtra("sms_body","hello");
+                // startActivity(i);
+
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(
+                        "0740211671",
+                        null,
+                        "Hello",
+                        null,
+                        null);
 
             }
         });

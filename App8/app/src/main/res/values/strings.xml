@@ -3,4 +3,5 @@
     <string name="btn1">Button</string>
     <string name="btn2">Request Permission</string>
     <string name="btn3">Multiple Request Permission</string>
+    <string name="btn4">Send SMS</string>
 </resources>

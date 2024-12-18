@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">App8</string>
+    <string name="btn1">Button</string>
+    <string name="btn2">Request Permission</string>
 </resources>

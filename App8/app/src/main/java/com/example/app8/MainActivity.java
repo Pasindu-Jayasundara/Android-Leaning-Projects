@@ -1,11 +1,16 @@
 package com.example.app8;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -84,6 +89,61 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        Button btn2 = findViewById(R.id.button2);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String permissionArray[] = new String[2];
+                int index = 0;
+
+                if(checkSelfPermission(android.Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED){
+                    Log.i("App 8","Call Phone Permission Granted");
+                }else {
+                    Log.i("App 8", "Call Phone Permission Denied");
+                    permissionArray[index] = Manifest.permission.CALL_PHONE;
+                    index++;
+                }
+
+                if(checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED){
+                    Log.i("App 8","Read Contacts Permission Granted");
+                }else{
+                    Log.i("App 8","Read Contacts Permission Denied");
+                    permissionArray[index] = Manifest.permission.READ_CONTACTS;
+                }
+                requestPermissions(permissionArray,100);
+
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 100) {
+
+            for (int i = 0; i < permissions.length; i++) {
+
+                String permission = permissions[i];
+                int grantResult = grantResults[i];
+
+                if (permission.equals(Manifest.permission.CALL_PHONE)) {
+                    if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                        Log.i("App 8", "Call Phone Permission Granted");
+                    } else {
+                        Log.i("App 8", "Call Phone Permission Denied");
+                    }
+                } else if (permission.equals(Manifest.permission.READ_CONTACTS)) {
+                    if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                        Log.i("App 8", "Read Contacts Permission Granted");
+                    } else {
+                        Log.i("App 8", "Read Contacts Permission Denied");
+                    }
+                }
+            }
+        }
     }
 }
 

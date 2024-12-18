@@ -73,20 +73,19 @@ public class MainActivity2 extends AppCompatActivity {
         if(requestCode == 200){
 
             for (int i = 0; i < permissions.length; i++) {
-                String permission = permissions[i];
 
                 if(grantResults[i] == PackageManager.PERMISSION_GRANTED){
-                    Log.i("Manifest 2",permission+" permission granted");
+                    Log.i("Manifest 2",permissions[i]+" permission granted");
 
-                    if(permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                    if(permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
                         //
-                    }else if(permission.equals(Manifest.permission.SEND_SMS)){
+                    }else if(permissions[i].equals(Manifest.permission.SEND_SMS)){
                         //
-                    }else if(permission.equals(Manifest.permission.CAMERA)){
+                    }else if(permissions[i].equals(Manifest.permission.CAMERA)){
                         //
                     }
                 }else{
-                    Log.i("Manifest 2",permission+" permission denied");
+                    Log.i("Manifest 2",permissions[i]+" permission denied");
                 }
 
             }

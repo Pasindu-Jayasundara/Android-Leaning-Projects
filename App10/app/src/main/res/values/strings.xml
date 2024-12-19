@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">App10</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn1">Update Activity TextView</string>
+    <string name="btn2">Add Fragment</string>
+    <string name="btn3">Update Fragment TextView</string>
 </resources>

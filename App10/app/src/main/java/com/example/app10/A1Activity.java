@@ -23,11 +23,33 @@ public class A1Activity extends AppCompatActivity {
             return insets;
         });
 
+        // change activity text view from activity
         findViewById(R.id.activityButton1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TextView textView = findViewById(R.id.activityTextView1);
                 textView.setText("Activity Button 1: Hello");
+            }
+        });
+
+        // add fragment to activity from activity
+        findViewById(R.id.activityButton2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .add(R.id.activityFragmentContainer1, F1Fragment.class,null)
+                        .setReorderingAllowed(true)
+                        .commit();
+            }
+        });
+
+        // change fragment text view from activity
+        findViewById(R.id.activityButton3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView textView = findViewById(R.id.fragmentTextView1);
+                textView.setText("Activity Button 3: Hello");
             }
         });
     }

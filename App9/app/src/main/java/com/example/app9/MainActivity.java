@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+
         Log.i("App 9", "onCreate");
 
         TextView textView = findViewById(R.id.textView);

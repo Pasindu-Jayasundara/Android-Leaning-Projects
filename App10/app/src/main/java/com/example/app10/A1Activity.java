@@ -38,7 +38,7 @@ public class A1Activity extends AppCompatActivity {
             public void onClick(View view) {
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.activityFragmentContainer1, F1Fragment.class,null)
+                        .replace(R.id.activityFragmentContainer1, F1Fragment.class,null)
                         .setReorderingAllowed(true)
                         .commit();
             }

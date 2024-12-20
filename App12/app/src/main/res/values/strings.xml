@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">App12</string>
+    <string name="text1">Create A New Contact</string>
+    <string name="text2">Mobile</string>
+    <string name="text3">First Name</string>
+    <string name="text4">Last Name</string>
+    <string name="text5">City</string>
+    <string name="btn1">Save Contacts</string>
+    <string name="btn2">View Contacts</string>
+</resources>

@@ -7,4 +7,5 @@
     <string name="text5">City</string>
     <string name="btn1">Save Contacts</string>
     <string name="btn2">View Contacts</string>
+    <string name="makeCall">Make A Call</string>
 </resources>

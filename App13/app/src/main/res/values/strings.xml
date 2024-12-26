@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">App13</string>
     <string name="createNewFile">Create New File</string>
+    <string name="writeText">Write Text</string>
 </resources>

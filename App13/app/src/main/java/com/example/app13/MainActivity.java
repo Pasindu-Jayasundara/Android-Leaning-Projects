@@ -10,7 +10,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,9 +32,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                File file = new File("data/data/com.example.app13/files/test.txt");
                 try {
+                    File file = new File("data/data/com.example.app13/files/test.txt");
                     file.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
+
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                try {
+
+                    File file = new File("data/data/com.example.app13/files/test.txt");
+                    FileWriter fw = new FileWriter(file);
+
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    bw.write("Hello World");
+                    bw.newLine();
+                    bw.write("File Writing");
+                    bw.flush();
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

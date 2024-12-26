@@ -7,41 +7,26 @@
     android:textAlignment="center">
 
     <TextView
-        android:id="@+id/textViewLetter"
-        android:layout_width="69dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/background_shape_1"
-        android:paddingTop="6dp"
-        android:text="S"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         android:text="Sahan Perera"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textViewLetter"
-        app:layout_constraintTop_toTopOf="@+id/textViewLetter" />
+        app:layout_constraintStart_toEndOf="@+id/frameLayout"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
 
     <TextView
         android:id="@+id/textViewMobileCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="12dp"
         android:text="0740211671 (Colombo)"
         android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewLetter"
-        app:layout_constraintStart_toEndOf="@+id/textViewLetter" />
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
+        app:layout_constraintStart_toEndOf="@+id/frameLayout" />
 
     <Button
         android:id="@+id/buttonCall"
@@ -54,7 +39,33 @@
         android:paddingBottom="2dp"
         android:text="@string/makeCall"
         app:iconPadding="3dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewLetter"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewLetter" />
+        app:layout_constraintTop_toTopOf="@+id/frameLayout" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/background_shape_1" />
+
+        <TextView
+            android:id="@+id/textViewLetter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textSize="48sp"
+            android:textStyle="bold" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

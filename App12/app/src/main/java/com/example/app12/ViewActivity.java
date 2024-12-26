@@ -1,7 +1,9 @@
 package com.example.app12;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app12.model.Contact;
@@ -48,23 +51,44 @@ public class ViewActivity extends AppCompatActivity {
             Type type = new TypeToken<ArrayList<Contact>>(){}.getType();
             ArrayList<Contact> contactArrayList = gson.fromJson(contactJson, type);
 
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+
             RecyclerView recyclerView = findViewById(R.id.recyclerView);
-            recyclerView.setAdapter(new Contactdapter(contactArrayList));
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setAdapter(new ContactAdapter(contactArrayList));
         }
     }
 }
 
-class Contactdapter extends RecyclerView.Adapter<ContactViewHolder>{
+class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder>{
+
+    static class ContactViewHolder extends RecyclerView.ViewHolder{
+
+        TextView textViewLetter;
+        TextView textViewName;
+        TextView textViewMobileCity;
+
+        Button buttonCall;
+
+        public ContactViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            textViewLetter = itemView.findViewById(R.id.textViewLetter);
+            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewMobileCity = itemView.findViewById(R.id.textViewMobileCity);
+            buttonCall = itemView.findViewById(R.id.buttonCall);
+        }
+    }
 
     ArrayList<Contact> contactArrayList;
 
-    public Contactdapter(ArrayList<Contact> contactArrayList) {
+    public ContactAdapter(ArrayList<Contact> contactArrayList) {
         this.contactArrayList = contactArrayList;
     }
 
     @NonNull
     @Override
-    public ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ContactAdapter.ContactViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View contactView = layoutInflater.inflate(R.layout.contact_item,parent,false);
@@ -76,6 +100,22 @@ class Contactdapter extends RecyclerView.Adapter<ContactViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
 
+        Contact contact = contactArrayList.get(position);
+
+        holder.textViewLetter.setText(String.valueOf(contact.getFirstName().charAt(0)));
+        holder.textViewName.setText(String.valueOf(contact.getFirstName()+" "+contact.getLastName()));
+        holder.textViewMobileCity.setText(String.valueOf(contact.getMobile()+" ("+contact.getCity()+")"));
+        holder.buttonCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:"+contact.getMobile()));
+                view.getContext().startActivity(i);
+
+            }
+        });
+
     }
 
     @Override
@@ -84,20 +124,3 @@ class Contactdapter extends RecyclerView.Adapter<ContactViewHolder>{
     }
 }
 
-class ContactViewHolder extends RecyclerView.ViewHolder{
-
-    TextView textViewLetter;
-    TextView textViewName;
-    TextView textViewMobileCity;
-
-    Button buttonCall;
-
-    public ContactViewHolder(@NonNull View itemView) {
-        super(itemView);
-
-        textViewLetter = itemView.findViewById(R.id.textViewLetter);
-        textViewName = itemView.findViewById(R.id.textViewName);
-        textViewMobileCity = itemView.findViewById(R.id.textViewMobileCity);
-        buttonCall = itemView.findViewById(R.id.buttonCall);
-    }
-}

@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -27,20 +28,27 @@ public class SignIn extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Gson gson = new Gson();
-        User fromJson = gson.fromJson(request.getReader(), User.class);
+//        User fromJson = gson.fromJson(request.getReader(), User.class);
+        JsonObject fromJson = gson.fromJson(request.getReader(), JsonObject.class);
         
-        boolean isSuccess = false;
+        String mobile = fromJson.get("mobile").getAsString();
+        String password = fromJson.get("password").getAsString();
+        
+        JsonObject jo = new JsonObject();
+        jo.addProperty("message", "Error");
+        jo.add("user", null);
         
         for (User user : userList) {
-            if(user.getMobile().equals(fromJson.getMobile()) && user.getPassword().equals(fromJson.getPassword())){
+            if(user.getMobile().equals(mobile) && user.getPassword().equals(password)){
                 
-                isSuccess = true;
+                jo.addProperty("message", "Success");
+                jo.add("user", gson.toJsonTree(user));
                 break;
             }
         }
         
         response.setContentType("application/json");
-        response.getWriter().write(gson.toJson(isSuccess));
+        response.getWriter().write(gson.toJson(jo));
 
     }
 

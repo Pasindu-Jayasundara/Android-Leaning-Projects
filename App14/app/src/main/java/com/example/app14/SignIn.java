@@ -1,8 +1,10 @@
 package com.example.app14;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,7 +69,19 @@ public class SignIn extends AppCompatActivity {
                             Response response = okHttpClient.newCall(request).execute();
                             String responseText = response.body().string();
 
+                            JsonObject jsonObject = gson.fromJson(responseText, JsonObject.class);
+                            if(jsonObject.get("message").getAsString().equals("Success")){
 
+                                Intent i = new Intent(SignIn.this, Home.class);
+                                i.putExtra("name", jsonObject.get("name").getAsString());
+                                i.putExtra("mobile", jsonObject.get("mobile").getAsString());
+                                i.putExtra("password", jsonObject.get("password").getAsString());
+                                i.putExtra("city", jsonObject.get("city").getAsString());
+                                startActivity(i);
+
+                            }else{
+                                Toast.makeText(SignIn.this, "Invalid Details", Toast.LENGTH_SHORT).show();
+                            }
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

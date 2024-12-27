@@ -15,6 +15,12 @@ import com.example.app14.model.User;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class Home extends AppCompatActivity {
 
     @Override
@@ -44,6 +50,23 @@ public class Home extends AppCompatActivity {
         cityView.setText(user.getCity());
         passwordView.setText(user.getPassword());
 
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                String url = "http://127.0.0.1/AndroidBackend/SignIn";
+
+                OkHttpClient okHttpClient = new OkHttpClient();
+                Request request = new Request.Builder().url(url).build();
+
+                try {
+                    Response response = okHttpClient.newCall(request).execute();
+                    String responseText = response.body().string();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
     }
 }

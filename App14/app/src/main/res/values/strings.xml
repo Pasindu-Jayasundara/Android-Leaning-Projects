@@ -2,4 +2,9 @@
     <string name="app_name">App14</string>
     <string name="title">OkHttp Client</string>
     <string name="getRequest">Make Http GET Request</string>
+    <string name="postRequest">Make Http POST Request</string>
+    <string name="signinTitle">Sign In</string>
+    <string name="username">Mobile</string>
+    <string name="password">Password</string>
+    <string name="signinBtn">SignIn</string>
 </resources>

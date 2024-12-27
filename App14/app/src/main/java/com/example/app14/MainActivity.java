@@ -12,8 +12,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import java.io.IOException;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,13 +31,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // "http://127.0.0.1/AndroidBackend/GetRequestTest"
+        String url = "http://127.0.0.1/AndroidBackend/GetRequestTest";
+
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("app 14 : request btn", "sending http get request");
-
-                String url = "http://127.0.0.1/AndroidBackend/GetRequestTest";
 
                 new Thread(new Runnable() {
                     @Override
@@ -44,6 +45,40 @@ public class MainActivity extends AppCompatActivity {
                         OkHttpClient okHttpClient = new OkHttpClient();
                         Request request = new Request.Builder()
                                 .url(url)
+                                .build();
+
+                        try {
+                            Response response = okHttpClient.newCall(request).execute();
+                            String responseText = response.body().string();
+
+                            Log.i("app 14 : responseText", responseText);
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }).start();
+
+            }
+        });
+
+
+        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        OkHttpClient okHttpClient = new OkHttpClient();
+
+                        // RequestBody requestBody = RequestBody.create("", null);
+                        RequestBody requestBody = RequestBody.create("", MediaType.get("text/plain"));
+
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .post(requestBody)
                                 .build();
 
                         try {

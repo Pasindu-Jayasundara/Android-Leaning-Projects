@@ -37,20 +37,26 @@ public class MainActivity extends AppCompatActivity {
 
                 String url = "http://127.0.0.1/AndroidBackend/GetRequestTest";
 
-                OkHttpClient okHttpClient = new OkHttpClient();
-                Request request = new Request.Builder()
-                        .url(url)
-                        .build();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                try {
-                    Response response = okHttpClient.newCall(request).execute();
-                    String responseText = response.body().string();
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        Request request = new Request.Builder()
+                                .url(url)
+                                .build();
 
-                    Log.i("app 14 : responseText", responseText);
+                        try {
+                            Response response = okHttpClient.newCall(request).execute();
+                            String responseText = response.body().string();
 
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                            Log.i("app 14 : responseText", responseText);
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }).start();
 
             }
         });

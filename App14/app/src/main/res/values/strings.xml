@@ -7,4 +7,9 @@
     <string name="username">Mobile</string>
     <string name="password">Password</string>
     <string name="signinBtn">SignIn</string>
+    <string name="homeTitle">Home</string>
+    <string name="name">Name :</string>
+    <string name="mobile">Mobile :</string>
+    <string name="city">City :</string>
+    <string name="pwd">Password :</string>
 </resources>

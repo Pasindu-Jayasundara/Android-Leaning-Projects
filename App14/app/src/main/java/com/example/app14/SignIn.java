@@ -73,14 +73,17 @@ public class SignIn extends AppCompatActivity {
                             if(jsonObject.get("message").getAsString().equals("Success")){
 
                                 Intent i = new Intent(SignIn.this, Home.class);
-                                i.putExtra("name", jsonObject.get("name").getAsString());
-                                i.putExtra("mobile", jsonObject.get("mobile").getAsString());
-                                i.putExtra("password", jsonObject.get("password").getAsString());
-                                i.putExtra("city", jsonObject.get("city").getAsString());
+                                i.putExtra("userJson", gson.toJson(jsonObject.get("user").getAsJsonObject()));
+
                                 startActivity(i);
 
                             }else{
-                                Toast.makeText(SignIn.this, "Invalid Details", Toast.LENGTH_SHORT).show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(SignIn.this, "Invalid Details", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         } catch (IOException e) {
                             throw new RuntimeException(e);

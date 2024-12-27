@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">App14</string>
+    <string name="title">OkHttp Client</string>
+    <string name="getRequest">Make Http GET Request</string>
 </resources>

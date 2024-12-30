@@ -2,4 +2,6 @@
     <string name="app_name">App15</string>
     <string name="btn1">Save User in SQLite</string>
     <string name="btn2">Search User in SQLite</string>
+    <string name="btn3">Insert Method in SQLite</string>
+    <string name="btn4">Insert Method in SQLite</string>
 </resources>

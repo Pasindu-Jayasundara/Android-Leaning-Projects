@@ -1,5 +1,6 @@
 package com.example.app15;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -69,6 +70,65 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).start();
 
+            }
+        });
+
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(MainActivity.this,"app15.db",null,1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        SQLiteDatabase sqLiteDatabase = sqLiteHelper.getWritableDatabase();
+
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("name","Pasindu");
+                        contentValues.put("mobile","0740211671");
+                        contentValues.put("city","Colombo");
+
+                        long id = sqLiteDatabase.insert("user",null,contentValues);
+
+                    }
+                }).start();
+            }
+        });
+
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SQLiteHelper sqLiteHelper = new SQLiteHelper(MainActivity.this,"app15.db",null,1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        SQLiteDatabase sqLiteDatabase = sqLiteHelper.getWritableDatabase();
+
+                        String projection[] = new String[]{"id","name","city"};
+                        String selection = "id=? AND name=?";
+                        String selectionArgs[] = new String[]{"1","Pasindu"}; // String selectionArgs[] = {"1","Pasindu"};
+
+                        Cursor cursor = sqLiteDatabase.query(
+                                "user",
+                                projection,
+                                selection,
+                                selectionArgs,
+                                null,
+                                null,
+                                null
+                        );
+
+                        while(cursor.moveToNext()){
+                            String id = cursor.getString(0);
+                            String name = cursor.getString(1);
+                            String city = cursor.getString(2);
+                        }
+
+                    }
+                }).start();
             }
         });
     }

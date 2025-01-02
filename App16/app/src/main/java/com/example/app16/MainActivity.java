@@ -2,6 +2,8 @@ package com.example.app16;
 
 import android.content.Context;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,6 +56,37 @@ public class MainActivity extends AppCompatActivity {
                 }else{
                     Log.i("App16Log","Magnetic Field Sensor is not available");
                 }
+
+            }
+        });
+
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+                if(sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)==null){
+                    return;
+                }
+                Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+                SensorEventListener sensorEventListener=  new SensorEventListener() {
+                    @Override
+                    public void onSensorChanged(SensorEvent sensorEvent) {
+
+                        float values[] = sensorEvent.values;
+                        Log.i("App16Log","Accelerometer Sensor Value X : "+String.valueOf(values[0]));
+                        Log.i("App16Log","Accelerometer Sensor Value Y : "+String.valueOf(values[1]));
+                        Log.i("App16Log","Accelerometer Sensor Value Z : "+String.valueOf(values[2]));
+                    }
+
+                    @Override
+                    public void onAccuracyChanged(Sensor sensor, int i) {
+
+                    }
+                };
+
+                sensorManager.registerListener(sensorEventListener,sensor,SensorManager.SENSOR_DELAY_NORMAL);
 
             }
         });

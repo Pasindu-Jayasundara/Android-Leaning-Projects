@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">My Note Book</string>
     <string name="btn1">Create A New Note</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="btn2">Save Note</string>
 </resources>

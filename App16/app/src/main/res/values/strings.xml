@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">App16</string>
+    <string name="btn1">Read Sensors</string>
+    <string name="btn2">Check Sensors Availability</string>
+</resources>

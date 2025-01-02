@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button btn1 = findViewById(R.id.button1);
+        Button btn1 = findViewById(R.id.buttonCreateNew);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

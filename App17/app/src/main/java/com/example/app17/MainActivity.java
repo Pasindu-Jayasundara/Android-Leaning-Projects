@@ -59,52 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
-            new ItemTouchHelper.Callback(){
-
-                @Override
-                public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                    return makeMovementFlags(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT);
-                }
-
-                @Override
-                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                    return false;
-                }
-
-                @Override
-                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                    Log.i("NotebookLog","Swiped");
-
-                    SQLiteHelper sqLiteHelper = new SQLiteHelper(viewHolder.itemView.getContext(),"mynotebook.db",null,1);
-                    NoteListAdapter.NoteViewHolder holder = (NoteListAdapter.NoteViewHolder) viewHolder;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            SQLiteDatabase writableDatabase = sqLiteHelper.getWritableDatabase();
-
-                            int deletedRows = writableDatabase.delete(
-                                    "notes",
-                                    "`id`=?",
-                                    new String[]{holder.id}
-                            );
-                            Log.i("NotebookLog","Note Deleted, Count: "+String.valueOf(deletedRows));
-
-                        }
-                    }).start();
-
-                }
-            }
-        );
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         SQLiteHelper sqLiteHelper = new SQLiteHelper(MainActivity.this,"mynotebook.db",null,1);
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -119,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                         null,
                         "`id` DESC"
                 );
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -130,6 +88,54 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).start();
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(
+                new ItemTouchHelper.Callback(){
+
+                    @Override
+                    public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                        return makeMovementFlags(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT);
+                    }
+
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        Log.i("NotebookLog","Swiped");
+
+                        SQLiteHelper sqLiteHelper = new SQLiteHelper(
+                                viewHolder.itemView.getContext(),
+                                "mynotebook.db",
+                                null,
+                                1
+                        );
+                        NoteListAdapter.NoteViewHolder holder = (NoteListAdapter.NoteViewHolder) viewHolder;
+
+                        NoteListAdapter adapter = (NoteListAdapter) recyclerView.getAdapter();
+                        adapter.removeItem(viewHolder.getAdapterPosition());
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                SQLiteDatabase writableDatabase = sqLiteHelper.getWritableDatabase();
+
+                                int deletedRows = writableDatabase.delete(
+                                        "notes",
+                                        "`id`=?",
+                                        new String[]{holder.id}
+                                );
+                                Log.i("NotebookLog","Note Deleted, Count: "+String.valueOf(deletedRows));
+                            }
+                        }).start();
+
+                    }
+                }
+        );
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 }
 
@@ -201,6 +207,10 @@ class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteViewHolde
     @Override
     public int getItemCount() {
         return cursor.getCount();
+    }
+
+    public void removeItem(int position){
+        notifyItemRemoved(position);
     }
 
 }

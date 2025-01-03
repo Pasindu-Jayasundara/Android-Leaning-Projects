@@ -15,8 +15,9 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/notepad"
-        tools:src="@mipmap/notepad" />
+        app:srcCompat="@drawable/notepad"
+        tools:src="@mipmap/notepad"
+        tools:srcCompat="@drawable/notepad" />
 
     <TextView
         android:id="@+id/textView"

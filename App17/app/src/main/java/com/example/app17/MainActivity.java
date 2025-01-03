@@ -1,6 +1,9 @@
 package com.example.app17;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,12 +15,15 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app17.model.SQLiteHelper;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,8 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
         SQLiteHelper sqLiteHelper = new SQLiteHelper(MainActivity.this,"mynotebook.db",null,1);
 
         new Thread(new Runnable() {
@@ -51,21 +66,43 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
 
                 SQLiteDatabase sqLiteDatabase = sqLiteHelper.getReadableDatabase();
+                Cursor cursor = sqLiteDatabase.query(
+                        "notes",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        "`id` DESC"
+                );
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        NoteListAdapter noteListAdapter = new NoteListAdapter(cursor);
+                        recyclerView.setAdapter(noteListAdapter);
+                    }
+                });
 
             }
         }).start();
-        NoteListAdapter noteListAdapter = new NoteListAdapter();
-        recyclerView.setAdapter(noteListAdapter);
     }
 }
 
 class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteViewHolder> {
+
+    Cursor cursor;
+
+    public NoteListAdapter(Cursor cursor) {
+        this.cursor = cursor;
+    }
 
     static class NoteViewHolder extends RecyclerView.ViewHolder{
 
         TextView titleView;
         TextView contentView;
         TextView date_createdView;
+        View containerView;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +110,7 @@ class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteViewHolde
             titleView = itemView.findViewById(R.id.textViewTitle);
             contentView = itemView.findViewById(R.id.textViewContent);
             date_createdView = itemView.findViewById(R.id.textViewDate);
+            containerView = itemView;
         }
     }
 
@@ -88,14 +126,36 @@ class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+        cursor.moveToPosition(position);
 
+        String id = cursor.getString(0);
+        String title = cursor.getString(1);
+        String content = cursor.getString(2);
+        String dateCreated = cursor.getString(3);
 
+        holder.titleView.setText(title);
+        holder.contentView.setText(content);
+        holder.date_createdView.setText(dateCreated);
+
+        holder.containerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(view.getContext(),CreateNoteActivity.class);
+                i.putExtra("id",id);
+                i.putExtra("title",title);
+                i.putExtra("content",content);
+
+                view.getContext().startActivity(i);
+
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return cursor.getCount();
     }
 
 }

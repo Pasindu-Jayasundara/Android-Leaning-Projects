@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
@@ -80,6 +82,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btn4 = findViewById(R.id.button4);
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                View layoutView = findViewById(R.id.linear);
+                Snackbar.make(layoutView,"Hello",Snackbar.LENGTH_LONG).setAction("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                }).show();
+
+            }
+        });
     }
 
 }

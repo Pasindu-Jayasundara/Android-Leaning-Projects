@@ -2,6 +2,8 @@ package com.example.app18;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +29,10 @@ public class MainActivity2 extends AppCompatActivity {
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Animation animation = AnimationUtils.loadAnimation(MainActivity2.this,R.anim.animation_1);
+                //animation.setFillAfter(true);
+                btn5.startAnimation(animation);
 
             }
         });

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">App19</string>
     <string name="title">Product Registration</string>
+    <string name="btntxt">Register</string>
 </resources>

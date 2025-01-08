@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,51 +57,61 @@ public class MainActivity extends AppCompatActivity {
                 String qty = quantityView.getText().toString();
                 String price = priceView.getText().toString();
 
+                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.animation_1);
+
                 if(title.isEmpty()){
                     ((TextView) toastView.findViewById(R.id.textView2)).setText("Fill the Product Title");
                     toast.show();
+                    btn.startAnimation(animation);
                     return;
                 }
 
                 if(description.isEmpty()){
                     ((TextView) toastView.findViewById(R.id.textView2)).setText("Fill the Product Description");
                     toast.show();
+                    btn.startAnimation(animation);
                     return;
                 }
 
                 if(category.isEmpty()){
                     ((TextView) toastView.findViewById(R.id.textView2)).setText("Fill the Product Category");
                     toast.show();
+                    btn.startAnimation(animation);
                     return;
                 }
 
                 if(brand.isEmpty()){
                     ((TextView) toastView.findViewById(R.id.textView2)).setText("Fill the Product Brand");
                     toast.show();
+                    btn.startAnimation(animation);
                     return;
                 }
 
                 if(qty.isEmpty()){
                     ((TextView) toastView.findViewById(R.id.textView2)).setText("Fill the Product Quantity");
                     toast.show();
+                    btn.startAnimation(animation);
                     return;
                 }
 
                 if(price.isEmpty()){
                     ((TextView) toastView.findViewById(R.id.textView2)).setText("Fill the Product Price");
                     toast.show();
+                    btn.startAnimation(animation);
                     return;
                 }
 
                 if(Integer.parseInt(qty) < 0){
                     ((TextView) toastView.findViewById(R.id.textView2)).setText("Invalid Quantity");
                     toast.show();
+                    btn.startAnimation(animation);
                     return;
                 }
 
                 if(Integer.parseInt(price) < 0){
                     ((TextView) toastView.findViewById(R.id.textView2)).setText("Invalid Price");
                     toast.show();
+                    btn.startAnimation(animation);
                     return;
                 }
 

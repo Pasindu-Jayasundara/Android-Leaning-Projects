@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">App18</string>
+    <string name="btn1">Custom Toast</string>
 </resources>

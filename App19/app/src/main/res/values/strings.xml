@@ -2,4 +2,5 @@
     <string name="app_name">App19</string>
     <string name="title">Product Registration</string>
     <string name="btntxt">Register</string>
+    <string name="btn2txt">OK</string>
 </resources>

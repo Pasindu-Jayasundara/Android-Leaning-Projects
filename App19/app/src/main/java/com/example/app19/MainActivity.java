@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -102,6 +103,15 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+                View successView = layoutInflater.inflate(R.layout.alert_success, null, false);
+                ((TextView) successView.findViewById(R.id.textView3)).setText("Registration Success");
+                ((Button) successView.findViewById(R.id.button2)).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(MainActivity.this, "Done", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                new AlertDialog.Builder(MainActivity.this).setView(successView).show();
             }
         });
     }

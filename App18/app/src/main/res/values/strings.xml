@@ -4,4 +4,5 @@
     <string name="btn2">Custom Alert</string>
     <string name="btn3">OK</string>
     <string name="btn4">SnackBar</string>
+    <string name="btn5">Animation 1 (View Animation)</string>
 </resources>

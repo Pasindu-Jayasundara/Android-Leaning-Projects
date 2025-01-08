@@ -67,9 +67,15 @@ public class MainActivity extends AppCompatActivity {
                 ImageView imageView = findViewById(R.id.imageView);
                 FlingAnimation flingAnimation = new FlingAnimation(imageView,DynamicAnimation.TRANSLATION_Y);
 
-                flingAnimation.setStartVelocity();
-                flingAnimation.setFriction(1.5f);
+                flingAnimation.setStartVelocity(1000f);
+                flingAnimation.setFriction(0.2f);
 
+                flingAnimation.addEndListener(new DynamicAnimation.OnAnimationEndListener() {
+                    @Override
+                    public void onAnimationEnd(DynamicAnimation animation, boolean canceled, float value, float velocity) {
+                        Toast.makeText(MainActivity.this, "end fling", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 flingAnimation.start();
 
             }

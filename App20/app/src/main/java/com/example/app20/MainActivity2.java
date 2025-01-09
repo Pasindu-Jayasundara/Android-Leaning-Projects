@@ -1,7 +1,9 @@
 package com.example.app20;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.widget.Button;
 
@@ -32,6 +34,25 @@ public class MainActivity2 extends AppCompatActivity {
                 WebView webView = findViewById(R.id.webview1);
                 webView.getSettings().setJavaScriptEnabled(true);
                 webView.loadUrl("https://www.google.com");
+
+            }
+        });
+
+        Button btn2 = findViewById(R.id.button4);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                WebView webView = findViewById(R.id.webview1);
+                webView.evaluateJavascript(
+                        "document.querySelector('.gLFyf').value;",
+                        new ValueCallback<String>() {
+                            @Override
+                            public void onReceiveValue(String string) {
+                                Log.i("webVieLog",string);
+                            }
+                        }
+                );
 
             }
         });

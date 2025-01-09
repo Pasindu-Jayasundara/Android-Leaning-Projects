@@ -1,16 +1,23 @@
 package com.example.angrybird;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsetsController;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -27,6 +34,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private String language = "en";
+    private String orientation = "portrait";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +53,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setupButtonListeners();
+        setupAnimation();
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        setLanguage(language); // Ensure language is set on configuration change
         setContentView(R.layout.activity_main); // Re-initialize UI elements after orientation change
         setupButtonListeners();
+        setupAnimation();
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setupButtonListeners() {
         // Handle button in portrait layout
         Button btnLandscape = findViewById(R.id.button2);
@@ -64,23 +74,25 @@ public class MainActivity extends AppCompatActivity {
             btnLandscape.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    setLanguage("si");  // Set Sinhala on button click
+                    orientation = "landscape";
                     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 }
             });
         }
 
-        // Handle button in landscape layout
-//        Button btnPortrait = findViewById(R.id.button);
-//        if (btnPortrait != null) {
-//            btnPortrait.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    setLanguage("en");  // Set Sinhala on button click
-//                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//                }
-//            });
-//        }
+        if(orientation.equals("landscape")){
+
+            ImageView imageView = findViewById(R.id.imageView2);
+            imageView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+
+
+
+                    return false;
+                }
+            });
+        }
     }
 
     private void setLanguage(String languageCode) {
@@ -101,5 +113,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
         resources.updateConfiguration(config, displayMetrics);  // Update the resources with the new locale
+    }
+
+    private void setupAnimation(){
+        if(orientation.equals("landscape")){
+
+            Animation animation = AnimationUtils.loadAnimation(
+                    MainActivity.this,
+                    R.anim.before_shoot
+            );
+            ImageView imageView = findViewById(R.id.imageView2);
+            imageView.startAnimation(animation);
+
+            new Handler().postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+
+                            Animation animation2 = AnimationUtils.loadAnimation(
+                                    MainActivity.this,
+                                    R.anim.before_shoot
+                            );
+
+                            ImageView imageView2 = findViewById(R.id.imageView3);
+                            imageView2.startAnimation(animation2);
+                        }
+                    }
+                    , 1000
+            );
+
+        }
     }
 }

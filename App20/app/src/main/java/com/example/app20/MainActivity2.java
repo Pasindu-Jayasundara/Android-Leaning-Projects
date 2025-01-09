@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +36,13 @@ public class MainActivity2 extends AppCompatActivity {
 
                 WebView webView = findViewById(R.id.webview1);
                 webView.getSettings().setJavaScriptEnabled(true);
+                WebViewClient client = new WebViewClient(){
+                    @Override
+                    public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+                        super.onReceivedHttpError(view, request, errorResponse);
+                    }
+                };
+                webView.setWebViewClient(client);
                 webView.loadUrl("https://www.google.com");
 
             }

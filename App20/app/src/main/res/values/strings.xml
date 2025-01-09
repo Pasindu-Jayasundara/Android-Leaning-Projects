@@ -2,4 +2,5 @@
     <string name="app_name">App20</string>
     <string name="btn1">Spring Animation</string>
     <string name="btn2">Fling Animation</string>
+    <string name="btn3">Load WebView</string>
 </resources>

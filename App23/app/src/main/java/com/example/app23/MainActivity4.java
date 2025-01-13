@@ -1,5 +1,6 @@
 package com.example.app23;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -103,6 +104,17 @@ public class MainActivity4 extends AppCompatActivity {
                 Toast.makeText(MainActivity4.this,"Saved Success",Toast.LENGTH_LONG).show();
                 editText.setText("");
                 spinner.requestFocus();
+
+            }
+        });
+
+        Button btn2 = findViewById(R.id.button4);
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity4.this,ChartActivity.class);
+                startActivity(intent);
 
             }
         });

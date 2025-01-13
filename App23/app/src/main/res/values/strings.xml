@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">App23</string>
+    <string name="title">Student Attendance System</string>
+    <string name="save">Save</string>
+    <string name="chart">View Chart</string>
+    <string name="count">Attendance Count</string>
 </resources>

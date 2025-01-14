@@ -1,5 +1,6 @@
 package com.example.app23;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -42,15 +43,22 @@ public class MainActivity5 extends AppCompatActivity {
             public void onClick(View view) {
 
                 ArrayList<PieEntry> pieEntryArrayList = new ArrayList<>();
-                pieEntryArrayList.add(new PieEntry(5));
-                pieEntryArrayList.add(new PieEntry(20));
-                pieEntryArrayList.add(new PieEntry(30));
-                pieEntryArrayList.add(new PieEntry(45));
+                pieEntryArrayList.add(new PieEntry(5,"Android"));
+                pieEntryArrayList.add(new PieEntry(20,"IOS"));
+                pieEntryArrayList.add(new PieEntry(30,"React Native"));
+                pieEntryArrayList.add(new PieEntry(45,"Flutter"));
 
-                PieDataSet pieDataSet = new PieDataSet(pieEntryArrayList,"Pie Chart");
+                PieDataSet pieDataSet = new PieDataSet(pieEntryArrayList,null);
+                ArrayList<Integer> colorArrayList = new ArrayList<>();
+                colorArrayList.add(getColor(R.color.green));
+                colorArrayList.add(getColor(R.color.blue));
+                colorArrayList.add(getColor(R.color.purple));
+                colorArrayList.add(getColor(R.color.orange));
+                pieDataSet.setColors(colorArrayList);
 
                 PieData pieData = new PieData();
                 pieData.addDataSet(pieDataSet);
+                pieData.setValueTextColor(getColor(R.color.green));
 
                 pieChart.setCenterText("Mobile Development");
                 pieChart.setCenterTextColor(getColor(R.color.green));

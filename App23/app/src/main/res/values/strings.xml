@@ -4,4 +4,6 @@
     <string name="save">Save</string>
     <string name="chart">View Chart</string>
     <string name="count">Attendance Count</string>
+    <string name="chart2">Pie Chart</string>
+    <string name="btn5">Load Chard</string>
 </resources>

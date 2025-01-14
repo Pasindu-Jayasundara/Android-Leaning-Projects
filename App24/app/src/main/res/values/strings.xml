@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">App24</string>
     <string name="btn1">Insert Document</string>
+    <string name="btn2">Search Document</string>
 </resources>

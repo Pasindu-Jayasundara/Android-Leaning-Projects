@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">App25</string>
+    <string name="btn1">Insert</string>
+    <string name="btn2">Search By Document Path</string>
+    <string name="btn3">Update</string>
+    <string name="btn4">Delete</string>
+    <string name="btn5">Offline Search</string>
 </resources>

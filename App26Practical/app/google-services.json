@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1072527036602",
+    "project_id": "app26-practical-f5885",
+    "storage_bucket": "app26-practical-f5885.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072527036602:android:c3c94166b43bf06127b283",
+        "android_client_info": {
+          "package_name": "com.example.app26practical"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJRS4CtUkiC0LgWVI1ZYXbQW8kqDMuWKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,4 +2,7 @@
     <string name="app_name">App26</string>
     <string name="txt1">Save Data</string>
     <string name="txt2">Basic Search</string>
+    <string name="txt3">Add Listener</string>
+    <string name="txt4">Condition Search</string>
+    <string name="txt5">Order By</string>
 </resources>

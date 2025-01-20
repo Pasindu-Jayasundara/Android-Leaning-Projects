@@ -1,25 +1,34 @@
 package com.example.app26practical;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+
+        // brand
         Spinner spinner = findViewById(R.id.spinner);
 
         List<String> brandList = new ArrayList<>();
@@ -48,23 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 brandList
         );
         spinner.setAdapter(brandArrayAdapter);
-
-
-        Spinner spinner2 = findViewById(R.id.spinner2);
-
-        List<String> productList = new ArrayList<>();
-        productList.add("Apple 15");
-        productList.add("Samsung Galaxy S5");
-
-        ArrayAdapter<String> productArrayAdapter = new ArrayAdapter<>(
-                MainActivity.this,
-                android.R.layout.simple_spinner_item,
-                productList
-        );
-        spinner2.setAdapter(productArrayAdapter);
-
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -79,7 +75,81 @@ public class MainActivity extends AppCompatActivity {
 
                                 if (task.isSuccessful()) {
 
+                                    List<DocumentSnapshot> documentSnapshotList = task.getResult().getDocuments();
+
+                                    for (DocumentSnapshot documentSnapshot : documentSnapshotList) {
+                                        Log.e("TAG", "success:"+ String.valueOf(documentSnapshot.getData()));
+                                    }
+
                                 }
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e("TAG", "onFailure:" + e.getMessage());
+                            }
+                        });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
+
+
+        // product
+        Spinner spinner2 = findViewById(R.id.spinner2);
+
+        List<String> productList = new ArrayList<>();
+        ArrayAdapter<String> productArrayAdapter = new ArrayAdapter<>(
+                MainActivity.this,
+                android.R.layout.simple_spinner_item,
+                productList
+        );
+
+        firestore.collection("product").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot documents, @Nullable FirebaseFirestoreException error) {
+                productList.clear();
+                List<DocumentSnapshot> documentSnapshotList = documents.getDocuments();
+                for(DocumentSnapshot doc: documentSnapshotList){
+                    productList.add(String.valueOf(doc.get("name")));
+                }
+                productArrayAdapter.notifyDataSetChanged();
+            }
+        });
+        spinner2.setAdapter(productArrayAdapter);
+
+        // search by product
+        spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                String product = String.valueOf(spinner2.getSelectedItem());
+                firestore.collection("product")
+                        .where(Filter.equalTo("name",product))
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                                List<DocumentSnapshot> documentSnapshotList = task.getResult().getDocuments();
+                                for(DocumentSnapshot doc:documentSnapshotList){
+                                    Log.e("TAG", "success:"+ String.valueOf(doc.getData()));
+                                }
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
 
                             }
                         });
@@ -91,6 +161,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+        // recyclerView
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+
+
+
+        recyclerView.setLayoutManager();
+        recyclerView.setAdapter(new RecyclerView.Adapter() {
+            @NonNull
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                return null;
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+            }
+
+            @Override
+            public int getItemCount() {
+                return 0;
+            }
+        });
+
 
     }
 }

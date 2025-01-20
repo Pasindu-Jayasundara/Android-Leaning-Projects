@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">App26 Practical</string>
+    <string name="text1">SIGN IN</string>
+    <string name="text2">Username</string>
+    <string name="text3">Password</string>
+    <string name="text4">Sign In</string>
 </resources>

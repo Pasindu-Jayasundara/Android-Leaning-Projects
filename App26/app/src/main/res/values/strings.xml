@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">App26</string>
+    <string name="txt1">Save Data</string>
+    <string name="txt2">Basic Search</string>
 </resources>

@@ -34,4 +34,10 @@
         android:name="com.example.app27.ui.cart.CartFragment"
         android:label="@string/text4"
         tools:layout="@layout/fragment_cart" />
+
+    <activity
+        android:id="@+id/activityOpen"
+        android:name="com.example.app27.MainActivity3"
+        android:label="@string/text4"
+        tools:layout="@layout/activity_main3" />
 </navigation>

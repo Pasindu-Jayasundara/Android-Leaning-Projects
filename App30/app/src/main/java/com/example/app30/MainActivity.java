@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
+                        googleMap.setOnMapClickListener(null);
+
                         btn1.setEnabled(false);
                         btn2.setEnabled(true);
 

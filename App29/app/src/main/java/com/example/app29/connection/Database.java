@@ -87,7 +87,7 @@ public class Database  extends SQLiteOpenHelper {
     public LocationDTO getLocationsById(int id) {
         SQLiteDatabase readableDatabase = this.getReadableDatabase();
         Cursor cursor = readableDatabase.rawQuery("SELECT * FROM `"+Database.TABLE_NAME+"` WHERE `id`="+Database.COL_ID,null);
-        ....................................
+//        ....................................
         return null;
     }
 }

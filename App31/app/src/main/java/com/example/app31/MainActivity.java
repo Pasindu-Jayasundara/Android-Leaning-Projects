@@ -1,5 +1,8 @@
 package com.example.app31;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +31,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
 
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+
+                    NotificationChannel notificationChannel = new NotificationChannel(
+                            "C1",
+                            "Chanel1",
+                            NotificationManager.IMPORTANCE_DEFAULT
+                    );
+                    notificationManager.createNotificationChannel(notificationChannel);
+                }
 
             }
         });
